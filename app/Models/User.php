@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Establecer la relacion uno a muchos con Reminder
+    public function reminders() {   
+        return $this->hasMany(Reminder::class);
+    }
+
+    // Establecer la relacion muchos a uno con Rol
+    public function rol() {
+        return $this->belongsTo(Rol::class);
+    }
 }

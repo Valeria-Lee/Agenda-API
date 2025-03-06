@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\StoreReminderRequest;
-use App\Http\Requests\UpdateReminderRequest;
-use App\Models\Reminder;
+use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\UpdateContactRequest;
+use App\Models\Contact;
+use App\Http\Controllers\Controller;
 
-class ReminderController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return Contact::all;
     }
 
     /**
@@ -27,7 +28,7 @@ class ReminderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReminderRequest $request)
+    public function store(StoreContactRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class ReminderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reminder $reminder)
+    public function show(Contact $contact)
     {
         //
     }
@@ -43,7 +44,7 @@ class ReminderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Reminder $reminder)
+    public function edit(Contact $contact)
     {
         //
     }
@@ -51,7 +52,7 @@ class ReminderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReminderRequest $request, Reminder $reminder)
+    public function update(UpdateContactRequest $request, Contact $contact)
     {
         //
     }
@@ -59,7 +60,7 @@ class ReminderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reminder $reminder)
+    public function destroy(Contact $contact)
     {
         //
     }

@@ -12,9 +12,8 @@ class ReminderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index() {
+        return Reminder::all();
     }
 
     /**
@@ -36,9 +35,13 @@ class ReminderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reminder $reminder)
-    {
-        //
+    public function show($id) {
+        try {
+            $reminder = Reminder::findOrFail($id);
+            return response()->json($reminder);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'No se encontro el recordatorio con el ID ingresado'], 404);
+        }
     }
 
     /**

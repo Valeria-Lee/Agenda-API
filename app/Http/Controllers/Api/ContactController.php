@@ -12,9 +12,8 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return Contact::all;
+    public function index() {
+        return Contact::all();
     }
 
     /**
@@ -36,9 +35,13 @@ class ContactController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contact $contact)
-    {
-        //
+    public function show($id) {
+        try {
+            $contact = Contact::findOrFail($id);
+            return response()->json($contact);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'No se encontro el contacto con el ID ingresado'], 404);
+        }
     }
 
     /**

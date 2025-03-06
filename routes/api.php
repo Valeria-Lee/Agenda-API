@@ -7,10 +7,11 @@ use App\Http\Controllers\Api\RolController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\ReminderController;
 
-// Es necesario definir para poder trabajar con sus valores dinamicoss
-
 // Definicion de rutas con Api Resource
 Route::apiResource('contact', ContactController::class);
-Route::apiResource('rol', RolController::class);
 Route::apiResource('event', EventController::class);
 Route::apiResource('reminder', ReminderController::class);
+
+// Definicion de rutas de solo lectura para rol.
+Route::get('/rol', [RolController::class, 'index']);
+Route::get('/rol/{id}', [RolController::class, 'show']);

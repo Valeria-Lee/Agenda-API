@@ -12,9 +12,8 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index() {
+        return Event::all();
     }
 
     /**
@@ -36,9 +35,13 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
-    {
-        //
+    public function show($id) {
+        try {
+            $event = Event::findOrFail($id);
+            return response()->json($event);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'No se encontro el evento con el ID ingresado'], 404);
+        }
     }
 
     /**

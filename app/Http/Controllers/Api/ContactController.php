@@ -16,19 +16,12 @@ class ContactController extends Controller
         return Contact::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    // Retiramos la funcion create porque las APIs no requieren regresar una vista.
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreContactRequest $request)
-    {
+    public function store(StoreContactRequest $request) {
         //
     }
 
@@ -44,13 +37,7 @@ class ContactController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Contact $contact)
-    {
-        //
-    }
+    // Retiramos la funcion edit porque la API no requiere retornar una vista (formulario).
 
     /**
      * Update the specified resource in storage.

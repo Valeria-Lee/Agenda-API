@@ -21,9 +21,13 @@ class ReminderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReminderRequest $request)
-    {
-        //
+    public function store(StoreReminderRequest $request) {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'date' => 'required',
+            'user_id' => 'exists:user_id', // Verifica que haya un usuario existente.
+        ]);
     }
 
     /**

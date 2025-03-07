@@ -10,6 +10,12 @@ class Reminder extends Model
     /** @use HasFactory<\Database\Factories\ReminderFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'date'
+    ];
+
     // Establecer la relacion muchos a uno con User
     public function user() {   
         return $this->belongsTo(User::class);

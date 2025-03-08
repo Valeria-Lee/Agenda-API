@@ -6,6 +6,7 @@ use App\Http\Requests\StoreReminderRequest;
 use App\Http\Requests\UpdateReminderRequest;
 use App\Models\Reminder;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ReminderController extends Controller
 {
@@ -21,13 +22,11 @@ class ReminderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // TODO: Autorizacion para que pueda ser utilizada aqui.
     public function store(StoreReminderRequest $request) {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'date' => 'required',
-            'user_id' => 'exists:user_id', // Verifica que haya un usuario existente.
-        ]);
+        /*$reminder = $request->all();
+        $reminder->user_id = Auth::id();
+        return new ReminderResource(Reminder::create($reminder));*/
     }
 
     /**

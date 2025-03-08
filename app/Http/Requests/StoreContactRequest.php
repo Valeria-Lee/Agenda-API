@@ -18,8 +18,7 @@ class StoreContactRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
             'first_name' => ['required'],
             'last_name' => ['required'],

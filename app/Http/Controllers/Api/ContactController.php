@@ -48,9 +48,8 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateContactRequest $request, Contact $contact)
-    {
-        //
+    public function update(UpdateContactRequest $request, Contact $contact) {
+        $contact->update($request->all());
     }
 
     /**

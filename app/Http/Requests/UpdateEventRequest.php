@@ -9,9 +9,8 @@ class UpdateEventRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
+    public function authorize(): bool {
+        return true;
     }
 
     /**
@@ -19,10 +18,21 @@ class UpdateEventRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            //
-        ];
+    public function rules(): array {
+        if ($method == 'PUT') {
+            return [
+                'name' => ['required'],
+                'date' => ['required', 'date'],
+                'description' => ['required'],
+                'hour' => ['required'],
+            ];
+        } else {
+            return [
+                'name' => ['sometimes', 'required'],
+                'date' => ['sometimes', 'required', 'date'],
+                'description' => ['sometimes', 'required'],
+                'hour' => ['sometimes', 'required'],
+            ];
+        }
     }
 }

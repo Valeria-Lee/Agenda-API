@@ -9,9 +9,8 @@ class StoreEventRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        return false;
+    public function authorize(): bool {
+        return true;
     }
 
     /**
@@ -19,10 +18,12 @@ class StoreEventRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
-            //
+            'name' => ['required'],
+            'date' => ['required', 'date'],
+            'description' => ['required'],
+            'hour' => ['required'],
         ];
     }
 }

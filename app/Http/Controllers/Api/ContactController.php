@@ -27,7 +27,6 @@ class ContactController extends Controller
             $contact = new ContactResource(Contact::create($request->all()));
             return response()->json($contact, 201);
         } catch (\Exception $e) {
-            \Log::error('Error creando el contacto:', ['error' => $e->getMessage()]);
             return response()->json(['message' => 'No se pudo crear el contacto'], 500);
         }
     }

@@ -13,7 +13,7 @@ class Reminder extends Model
     protected $fillable = [
         'name',
         'description',
-        'date'
+        'date',
     ];
 
     // Establecer la relacion muchos a uno con User

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventResource;
 
 class EventController extends Controller
 {
@@ -21,9 +22,13 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEventRequest $request)
-    {
-        //
+    public function store(StoreEventRequest $request) {
+        try {
+            $event = new EventResource(Event::create($request->all()));
+            return response()->json($event, 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'No se pudo crear el evento']);
+        }
     }
 
     /**

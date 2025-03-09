@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('rol_id');
             $table->foreign('rol_id')->references('id')->on('rols')->onDelete('cascade');
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
+        /*Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
@@ -37,7 +37,16 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
-        });
+        });*/
+
+        DB::table('users')->insert([
+            [
+            'name' => 'admin1', 
+            'email' => 'adm1@gmail.com',
+            'password' => Hash::make('1234567'),
+            'rol_id' => 1
+            ]
+        ]);
     }
 
     /**

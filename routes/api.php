@@ -7,14 +7,16 @@ use App\Http\Controllers\Api\RolController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\ReminderController;
 
-// Definicion de rutas con Api Resource
-Route::apiResource('contact', ContactController::class);
-Route::apiResource('event', EventController::class);
-Route::apiResource('reminder', ReminderController::class);
+Route::middleware([Cors::class])->group(function () {
+    // Definicion de rutas con Api Resource
+    Route::apiResource('contact', ContactController::class);
+    Route::apiResource('event', EventController::class);
+    Route::apiResource('reminder', ReminderController::class);
 
-// Definicion de rutas de solo lectura para rol.
-Route::get('/rol', [RolController::class, 'index']);
-Route::get('/rol/{id}', [RolController::class, 'show']);
+    // Definicion de rutas de solo lectura para rol.
+    Route::get('/rol', [RolController::class, 'index']);
+    Route::get('/rol/{id}', [RolController::class, 'show']);
 
-// Route::post('/register', [AuthController::class, 'register']);
-// Route::post('/login', [AuthController::class, 'login']);
+    // Route::post('/register', [AuthController::class, 'register']);
+    // Route::post('/login', [AuthController::class, 'login']);
+});

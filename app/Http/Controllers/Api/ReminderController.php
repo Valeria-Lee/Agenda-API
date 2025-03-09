@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateReminderRequest;
 use App\Models\Reminder;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ReminderResource;
+use Illuminate\Support\Facades\Log;
 
 class ReminderController extends Controller
 {
@@ -22,13 +23,21 @@ class ReminderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // TODO: Autorizacion para que pueda ser utilizada aqui.
     public function store(StoreReminderRequest $request) {
         try {
             $reminder = $request->all();
             $reminder_res = new ReminderResource(Reminder::create($reminder));
+
+            $user = $reminder->user;
+            if ($user) {
+                $user->notify(new ReminderDueNotification($reminder));
+            }
+
+            Log::info('Reminder notification sent.');
+
             return response()->json($reminder_res, 201);
         } catch (\Exception $e) {
+            Log::error('Error creadno reminder: ' . $e->getMessage());
             return response()->json(['message' => 'No se pudo crear el recordatorio'], 500);
         }
     }

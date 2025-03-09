@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\RolController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\ReminderController;
 use App\Http\Middleware\Cors;
+use Commands\SendReminderNotifications;
 
 Route::middleware([Cors::class])->group(function () {
     // Definicion de rutas con Api Resource

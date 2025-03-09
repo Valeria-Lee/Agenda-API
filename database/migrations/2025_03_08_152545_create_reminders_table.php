@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->dateTime('date');
+            $table->string('email')->nullable()->change();
+            $table->date('date');
+            $table->time('hour');
             $table->timestamps();
         });
     }

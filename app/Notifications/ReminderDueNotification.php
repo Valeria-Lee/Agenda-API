@@ -5,17 +5,14 @@ namespace App\Notifications;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ReminderDueNotification extends Notification
-{
+class ReminderDueNotification extends Notification {
     protected $reminder;
 
-    public function __construct($reminder)
-    {
+    public function __construct($reminder) {
         $this->reminder = $reminder;
     }
 
-    public function via($notifiable)
-    {
+    public function via($notifiable) {
         return ['mail'];
     }
 

@@ -21,10 +21,11 @@ class StoreReminderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required|exists:users,id'],
             'name' => ['required'],
+            'email' => ['email'],
             'description' => ['required'],
             'date' => ['required', 'date'],
+            'hour' => ['required'],
         ];
     }
 }

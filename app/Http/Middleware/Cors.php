@@ -1,6 +1,6 @@
 <?php
 
-nnamespace App\Http\Middleware;
+namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -22,9 +22,6 @@ class Cors
 
         // Allow pre-flight requests (OPTIONS method)
         $response->headers->set('Access-Control-Max-Age', '3600');
-
-        // Allow credentials if needed (remove if not needed)
-        // $response->headers->set('Access-Control-Allow-Credentials', 'true');
 
         return $response;
     }

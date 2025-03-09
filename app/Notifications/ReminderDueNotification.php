@@ -18,9 +18,9 @@ class ReminderDueNotification extends Notification {
 
     public function toMail($notifiable) {
         return (new MailMessage)
-            ->subject('Este es  tu recordatorio')
-            ->line('Tu recordatorio "' . $this->reminder->name)
-            ->line('Date: ' . $this->reminder->date->format('Y-m-d H:i'))
+            ->subject('Este es tu recordatorio')
+            ->line('Tu recordatorio "' . $this->reminder->name . '"')
+            ->line('Date: ' . $this->reminder->date->format('Y-m-d H:i'));
     }
 
     public function toArray($notifiable)

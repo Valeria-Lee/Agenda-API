@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('email')->nullable()->change();
             $table->date('date');
-            $table->time('hour');
+            $table->time('hour')->nullable()->change();
             $table->timestamps();
         });
     }

@@ -6,7 +6,9 @@ use App\Http\Requests\StoreReminderRequest;
 use App\Http\Requests\UpdateReminderRequest;
 use App\Models\Reminder;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\ReminderResource;
+use App\Notifications\ReminderDueNotification;
 use Illuminate\Support\Facades\Log;
 
 class ReminderController extends Controller
@@ -25,22 +27,20 @@ class ReminderController extends Controller
      */
     public function store(StoreReminderRequest $request) {
         try {
-            $reminder = $request->all();
-            $reminder_res = new ReminderResource(Reminder::create($reminder));
-
-            $user = $reminder->user;
-            if ($user) {
-                $user->notify(new ReminderDueNotification($reminder));
-            }
-
-            Log::info('Reminder notification sent.');
-
-            return response()->json($reminder_res, 201);
+            $reminderData = $request->all();
+            $reminder = Reminder::create($reminderData);
+    
+            Log::info('Reminder created successfully', ['reminder_id' => $reminder->id]);
+    
+            Mail::to($reminder->email)->send(new ReminderDueNotification($reminder));
+    
+            return response()->json(new ReminderResource($reminder), 201);
         } catch (\Exception $e) {
-            Log::error('Error creadno reminder: ' . $e->getMessage());
+            Log::error('Error creating reminder: ' . $e->getMessage());
             return response()->json(['message' => 'No se pudo crear el recordatorio'], 500);
         }
     }
+    
 
     /**
      * Display the specified resource.

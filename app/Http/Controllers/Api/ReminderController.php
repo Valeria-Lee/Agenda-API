@@ -26,7 +26,6 @@ class ReminderController extends Controller
     public function store(StoreReminderRequest $request) {
         try {
             $reminder = $request->all();
-            $reminder['user_id'] = $request->input('user_id');
             $reminder_res = new ReminderResource(Reminder::create($reminder));
             return response()->json($reminder_res, 201);
         } catch (\Exception $e) {

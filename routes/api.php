@@ -15,3 +15,6 @@ Route::apiResource('reminder', ReminderController::class);
 // Definicion de rutas de solo lectura para rol.
 Route::get('/rol', [RolController::class, 'index']);
 Route::get('/rol/{id}', [RolController::class, 'show']);
+
+// Route::post('/register', [AuthController::class, 'register']);
+// Route::post('/login', [AuthController::class, 'login']);

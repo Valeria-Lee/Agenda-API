@@ -55,8 +55,8 @@ class ContactController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contact $contact)
-    {
-        //
+    public function destroy(Contact $contact) {
+        $contact = Contact::findOrFail($id);
+        return response()->json(['message', "Recordatorio {$id} eliminado de forma exitosa"]);
     }
 }

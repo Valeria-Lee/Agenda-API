@@ -49,14 +49,17 @@ class EventController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateEventRequest $request, Event $event) {
+        if (auth()->user()->rol_id !== 1) {
+            return response()->json(['error' => 'Acceso no autorizado'], 403);
+        }
         $event->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
-    {
-        //
+    public function destroy(Event $event) {
+        $event = Event::findOrFail($id);
+        return response()->json(['message', "Recordatorio {$id} eliminado de forma exitosa"]);
     }
 }

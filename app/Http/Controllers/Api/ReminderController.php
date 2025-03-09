@@ -6,7 +6,6 @@ use App\Http\Requests\StoreReminderRequest;
 use App\Http\Requests\UpdateReminderRequest;
 use App\Models\Reminder;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ReminderResource;
 
 class ReminderController extends Controller
@@ -27,7 +26,7 @@ class ReminderController extends Controller
     public function store(StoreReminderRequest $request) {
         try {
             $reminder = $request->all();
-            $reminder->user_id = Auth::id();
+            $reminder['user_id'] = $request->input('user_id');
             $reminder_res = new ReminderResource(Reminder::create($reminder));
             return response()->json($reminder_res, 201);
         } catch (\Exception $e) {
@@ -49,19 +48,13 @@ class ReminderController extends Controller
 
     // Retiramos la funcion edit porque la API no requiere retornar una vista (formulario).
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateReminderRequest $request, Reminder $reminder)
-    {
-        //
-    }
+    // No se ocupa la ruta de update en recordatorio.
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reminder $reminder)
-    {
-        //
+    public function destroy($id) {
+        $reminder = Reminder::findOrFail($id);
+        return response()->json(['message', "Recordatorio {$id} eliminado de forma exitosa"]);
     }
 }

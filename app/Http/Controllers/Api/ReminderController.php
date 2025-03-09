@@ -8,7 +8,8 @@ use App\Models\Reminder;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\ReminderResource;
-use App\Notifications\ReminderDueNotification;
+// use App\Notifications\ReminderDueNotification;
+use App\Mail\ReminderDueMail; 
 use Illuminate\Support\Facades\Log;
 
 class ReminderController extends Controller
@@ -30,9 +31,9 @@ class ReminderController extends Controller
             $reminderData = $request->all();
             $reminder = Reminder::create($reminderData);
     
-            Log::info('Reminder created successfully', ['reminder_id' => $reminder->id]);
+            Log::info('Se ha creado un recordatorio de forma exitosa', ['reminder_id' => $reminder->id]);
     
-            Mail::to($reminder->email)->send(new ReminderDueNotification($reminder));
+            Mail::to($reminder->email)->send(new ReminderDueMail($reminder));
     
             return response()->json(new ReminderResource($reminder), 201);
         } catch (\Exception $e) {

@@ -19,6 +19,8 @@ class UpdateEventRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array {
+        $method = $this->method();
+
         if ($method == 'PUT') {
             return [
                 'name' => ['required'],

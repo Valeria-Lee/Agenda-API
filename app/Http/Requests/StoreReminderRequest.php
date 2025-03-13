@@ -22,7 +22,7 @@ class StoreReminderRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'email' => ['email'],
+            'email' => ['required', 'email'],
             'description' => ['required'],
             'date' => ['required', 'date'],
             'hour' => ['required'],

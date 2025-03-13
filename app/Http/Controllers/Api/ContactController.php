@@ -27,7 +27,7 @@ class ContactController extends Controller
             $contact = new ContactResource(Contact::create($request->all()));
             return response()->json($contact, 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'No se pudo crear el contacto'], 500);
+            return response()->json(['message' => "No se pudo crear el contacto {$contact->$id}"], 500);
         }
     }
 
@@ -39,7 +39,7 @@ class ContactController extends Controller
             $contact = Contact::findOrFail($id);
             return response()->json($contact);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'No se encontro el contacto con el ID ingresado'], 404);
+            return response()->json(['message' => "No se encontro el contacto con el {$id}"], 404);
         }
     }
 
@@ -50,13 +50,14 @@ class ContactController extends Controller
      */
     public function update(UpdateContactRequest $request, Contact $contact) {
         $contact->update($request->all());
+        return response()->json(['message' => "Contacto actualizado de forma exitosa"]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contact $contact) {
-        $contact = Contact::findOrFail($id);
-        return response()->json(['message', "Recordatorio {$id} eliminado de forma exitosa"]);
+    public function destroy(Contact $contact) { 
+        $contact->delete();
+        return response()->json(['message' => "Contacto eliminado de forma exitosa"], 200);
     }
 }

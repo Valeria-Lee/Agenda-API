@@ -27,7 +27,7 @@ class EventController extends Controller
             $event = new EventResource(Event::create($request->all()));
             return response()->json($event, 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'No se pudo crear el evento']);
+            return response()->json(['message' => "No se pudo crear el evento {$event->$id}"], 500);
         }
     }
 
@@ -39,7 +39,7 @@ class EventController extends Controller
             $event = Event::findOrFail($id);
             return response()->json($event);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'No se encontro el evento con el ID ingresado'], 404);
+            return response()->json(['message' => "No se encontro el evento {$id}"], 404);
         }
     }
 
@@ -49,17 +49,15 @@ class EventController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateEventRequest $request, Event $event) {
-        if (auth()->user()->rol_id !== 1) {
-            return response()->json(['error' => 'Acceso no autorizado'], 403);
-        }
         $event->update($request->all());
+        return response()->json(['message' => "Evento actualizado de forma exitosa"], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Event $event) {
-        $event = Event::findOrFail($id);
-        return response()->json(['message', "Recordatorio {$id} eliminado de forma exitosa"]);
+        $event->delete();
+        return response()->json(['message' => "Evento eliminado de forma exitosa"], 200);
     }
 }

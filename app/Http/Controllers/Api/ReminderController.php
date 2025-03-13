@@ -8,7 +8,8 @@ use App\Models\Reminder;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\ReminderResource;
-// use App\Notifications\ReminderDueNotification;
+use App\Notifications\ReminderDueNotification;
+
 use App\Mail\ReminderDueMail; 
 use Illuminate\Support\Facades\Log;
 
@@ -31,13 +32,17 @@ class ReminderController extends Controller
             $reminderData = $request->all();
             $reminder = Reminder::create($reminderData);
     
-            Log::info('Se ha creado un recordatorio de forma exitosa', ['reminder_id' => $reminder->id]);
+            Log::info('Recordatorio creado de forma exitosa', ['reminder_id' => $reminder->id]);
     
             Mail::to($reminder->email)->send(new ReminderDueMail($reminder));
-    
+
             return response()->json(new ReminderResource($reminder), 201);
         } catch (\Exception $e) {
-            Log::error('Error creating reminder: ' . $e->getMessage());
+            Log::error('Error al crear el recordatorio', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+        
             return response()->json(['message' => 'No se pudo crear el recordatorio'], 500);
         }
     }
@@ -51,7 +56,7 @@ class ReminderController extends Controller
             $reminder = Reminder::findOrFail($id);
             return response()->json($reminder);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'No se encontro el recordatorio con el ID ingresado'], 404);
+            return response()->json(['message' => "No se encontro el recordatorio con el {$did}"], 404);
         }
     }
 
@@ -62,8 +67,8 @@ class ReminderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {
-        $reminder = Reminder::findOrFail($id);
-        return response()->json(['message', "Recordatorio {$id} eliminado de forma exitosa"]);
+    public function destroy(Reminder $reminder) {
+        $reminder->delete();
+        return response()->json(['message', "Recordatorio eliminado de forma exitosa"], 200);
     }
 }
